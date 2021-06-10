@@ -1,0 +1,65 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: icebrk
+    network: bsc
+    source:
+      address: "0xd21182535598e18d530e88c08c3ffb630b88f84a"
+      abi: icebrk
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - BetBear
+        - BetBull
+        - Claim
+        - ClaimTreasury
+        - EndRound
+        - LockRound
+        - MinBetAmountUpdated
+        - OwnershipTransferred
+        - Pause
+        - Paused
+        - RatesUpdated
+        - RewardsCalculated
+        - StartRound
+        - Unpause
+        - Unpaused
+      abis:
+        - name: icebrk
+          file: icebrk\abis\icebrk.json
+      eventHandlers:
+        - event: BetBear(indexed address,indexed uint256,uint256)
+          handler: handleBetBear
+        - event: BetBull(indexed address,indexed uint256,uint256)
+          handler: handleBetBull
+        - event: Claim(indexed address,indexed uint256,uint256)
+          handler: handleClaim
+        - event: ClaimTreasury(uint256)
+          handler: handleClaimTreasury
+        - event: EndRound(indexed uint256,uint256,int256)
+          handler: handleEndRound
+        - event: LockRound(indexed uint256,uint256,int256)
+          handler: handleLockRound
+        - event: MinBetAmountUpdated(indexed uint256,uint256)
+          handler: handleMinBetAmountUpdated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Pause(uint256)
+          handler: handlePause
+        - event: Paused(address)
+          handler: handlePaused
+        - event: RatesUpdated(indexed uint256,uint256,uint256)
+          handler: handleRatesUpdated
+        - event: RewardsCalculated(indexed uint256,uint256,uint256,uint256)
+          handler: handleRewardsCalculated
+        - event: StartRound(indexed uint256,uint256)
+          handler: handleStartRound
+        - event: Unpause(uint256)
+          handler: handleUnpause
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: icebrk\icebrk.wasm
